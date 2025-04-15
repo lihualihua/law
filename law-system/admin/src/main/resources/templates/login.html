@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
-    <title>School console</title>
+    <title>法治攀电管理系统</title>
 </head>
 <body class="layui-layout-login" >
 <div class="login-bg">
     <div class="cover"></div>
 </div>
 <div class="login-content" th:th:classappend="${isCaptcha} ? 'captcha'">
-    <h1 class="login-box-title"><i class="fa fa-fw fa-user"></i>School console</h1>
+    <h1 class="login-box-title"><i class="fa fa-fw fa-user"></i>法治攀电管理系统</h1>
     <form class="layui-form" th:action="@{/login}" method="post">
         <div class="layui-form-item">
             <label class="layui-icon layui-icon-username" for="username"></label>

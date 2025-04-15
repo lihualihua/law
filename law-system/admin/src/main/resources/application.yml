@@ -17,9 +17,9 @@ spring:
 ## 数据库配置
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://39.98.197.245:3306/timo?useSSL=false&characterEncoding=utf-8
-    username: test
-    password: Zhongmk#123
+    url: jdbc:mysql://120.76.241.202:3306/legaleducation?useSSL=false&characterEncoding=utf-8
+    username: root
+    password: CNOOC@25
 
 ## jpa配置
   jpa:

@@ -1,260 +1,507 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../../scripts/miniui/locale/en_US.js" type="text/javascript"></script>
+    <title>法治攀电平台</title>
     <style>
-        a{
-            color: #005980;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
         }
-        .widget-small{
-            background-color: #FFFFFF;
-            overflow: hidden;
-            text-align: center;
-            border-radius: 2px;
-            box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #96BDB8;
+            padding: 10px 20px;
         }
-        .widget-small .fa{
-            float: left;
-            width: 40%;
-            line-height: 80px;
-            color: #FFFFFF;
-        }
-        .widget-user .fa{
-            background-color: #029789;
-        }
-        .widget-visit .fa{
-            background-color: #17a2b8;
-        }
-        .widget-message .fa{
-            background-color: #fbad4c;
-        }
-        .widget-like .fa{
-            background-color: #ff646d;
-        }
-        .widget-small-info{
-            float: left;
-            text-align: left;
-            width: 40%;
-            margin-left: 20px;
-            margin-top: 18px;
-            line-height: 24px;
-        }
-        .widget-small-info h4{
-            font-size: 18px;
-        }
-        .widget-small-info span{
-            font-size: 16px;
-        }
-        .project-introduce{
-            min-height: 466px;
-        }
-        .project-introduce h4{
+
+        .header .title {
+            font-size: 48px;
             font-weight: bold;
-            margin-top: 12px;
-            margin-bottom: 8px;
+            margin-left: 50px; /* 向右移动 */
+            color: black; /* 设置文字颜色为黑色 */
+            text-decoration: none; /* 去掉下划线 */
         }
-        .project-introduce li{
-            list-style: decimal;
-            margin-left: 28px;
+
+        .header .title:hover {
+            text-decoration: none; /* 鼠标悬停时也不显示下划线 */
+            color: black; /* 鼠标悬停时保持颜色不变 */
+        }
+
+        .header .menu {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .header .menu table {
+            border-collapse: collapse;
+        }
+
+        .header .menu td {
+            padding: 0; /* 移除单元格的内边距 */
+            border: 1px solid #ddd;
+        }
+
+        .menu-link {
+            display: block;
+            text-decoration: none; /* 去掉下划线 */
+            color: white; /* 默认文字颜色 */
+            background-color: #267061; /* 默认背景色 */
+            text-align: center;
+            width: 100%; /* 链接宽度填满单元格 */
+            height: 100%; /* 链接高度填满单元格 */
+            padding: 10px 10px; /* 添加内边距，确保文字居中 */
+            box-sizing: border-box; /* 包括内边距在宽高计算内 */
+        }
+
+        .menu-link:hover {
+            background-color: white; /* 鼠标悬停时背景色 */
+            color: #267061; /* 鼠标悬停时文字颜色 */
+        }
+
+        .menu-link:active {
+            background-color: white; /* 点击时背景色 */
+            color: #1E4D43; /* 点击时文字颜色 */
+        }
+
+        .header .search {
+            display: flex;
+            align-items: center;
+            background-color: #96BDB8; /* 背景颜色 */
+            padding: 8px; /* 增加整体内边距 */
+            border-radius: 4px; /* 圆角 */
+        }
+
+        .header .search input[type="text"] {
+            flex: 1;
+            padding: 12px; /* 增加输入框内边距 */
+            font-size: 18px; /* 增大文字大小 */
+            border: none;
+            border-radius: 4px 0 0 4px; /* 左侧圆角 */
+            outline: none;
+        }
+
+        .header .search .search-button {
+            background-color: white;
+            border: none;
+            border-radius: 0 4px 4px 0; /* 右侧圆角 */
+            padding: 12px 16px; /* 增加按钮内边距 */
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header .search .search-icon {
+            width: 20px; /* 增大图标宽度 */
+            height: 20px; /* 增大图标高度 */
+        }
+
+        .policy-section {
+            margin: 10px 20px; /* 减少顶部的外边距 */
+            padding: 10px 20px; /* 减少顶部的内边距 */
+            border: 1px solid #ddd;
+        }
+
+        .policy-title {
+            text-align: left;
+            font-size: 36px;
+            font-weight: bold;
+            color: #666666;
+            background-color: #E8E8E8;
+            margin-top: 10px; /* 减少标题上方的外边距 */
+            margin-bottom: 20px;
+            padding-left: 60px; /* 向右移动文字，但保持背景色位置不变 */
+            width: 7%;
+        }
+
+        .policy-horizontal-line {
+            border: none;
+            border-top: 1px solid #ddd; /* 横线样式 */
+            margin: 10px 0; /* 上下间距 */
+        }
+
+        .policy-content {
+            display: flex;
+            gap: 20px;
+            position: relative; /* 为竖线定位 */
+        }
+
+        .policy-column {
+            flex: 1;
+        }
+
+        .policy-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* 标题和more按钮两端对齐 */
+            color: #267061;
+            margin-bottom: 10px;
+        }
+
+        .policy-header h3 {
+            font-size: 24px;
+            margin: 0;
+            flex: 1; /* 标题占据左侧空间 */
+            display: flex;
+            align-items: center;
+        }
+
+        .policy-header .policy-icon {
+            width: 8px; /* 方块宽度 */
+            height: 24px; /* 方块高度 */
+            background-color: #267061; /* 方块颜色 */
+            margin-right: 10px; /* 方块与标题的间距 */
+        }
+
+        .policy-header .more-link {
+            text-decoration: none;
+            color: #267061;
+            font-size: 14px;
+            font-weight: bold; /* 加粗字体 */
+        }
+
+        .policy-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .policy-column ul li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+
+
+        .article-link {
+            text-decoration: none;
+            color: #267061;
+            flex: 3; /* 第一列占较多空间 */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .interpret-link {
+            text-decoration: none; /* 去掉下划线 */
+            color: #267061; /* 默认文字颜色 */
+            margin-left: 0px; /* 向右移动 */
+            flex: 1; /* 第二列占较少空间 */
+            text-align: right;
+        }
+
+        .policy-column ul li span {
+            margin-left: 10px;
+            color: #666;
+            text-align: center;
+            flex: 1; /* 第三列占适中空间 */
+        }
+
+        .policy-divider {
+            width: 1px; /* 竖线宽度 */
+            background-color: #ddd; /* 竖线颜色 */
+            margin: 0 10px; /* 左右间距 */
         }
     </style>
 </head>
-<body class="timo-layout-page">
-    <div class="layui-row layui-col-space15">
-        <div class="layui-col-md3 layui-col-sm6 layui-col-xs12">
-            <div class="widget-small widget-user">
-                <i class="icon fa fa-users fa-3x"></i>
-                <div class="widget-small-info">
-                    <h4>用户</h4>
-                    <span>12</span>
-                </div>
+
+<body>
+<!-- 顶部导航栏 -->
+<div class="header">
+    <a href="index.html" class="title">法治攀电平台</a>
+    <div class="menu">
+        <table>
+            <tr>
+                <td><a href="#" class="menu-link">全部</a></td>
+                <td><a href="#" class="menu-link">行政办公</a></td>
+                <td><a href="#" class="menu-link">体制改革</a></td>
+                <td><a href="#" class="menu-link">法律合规</a></td>
+                <td><a href="#" class="menu-link">政策研究</a></td>
+                <td><a href="#" class="menu-link">人事管理</a></td>
+                <td><a href="#" class="menu-link">人力资源</a></td>
+                <td><a href="#" class="menu-link">企业协会</a></td>
+                <td><a href="#" class="menu-link">发展规划</a></td>
+                <td><a href="#" class="menu-link">财务资产</a></td>
+            </tr>
+            <tr>
+                <td><a href="#" class="menu-link">运维检修</a></td>
+                <td><a href="#" class="menu-link">安全监督</a></td>
+                <td><a href="#" class="menu-link">市场营销</a></td>
+                <td><a href="#" class="menu-link">农电管理</a></td>
+                <td><a href="#" class="menu-link">电力交易</a></td>
+                <td><a href="#" class="menu-link">基建管理</a></td>
+                <td><a href="#" class="menu-link">审计监督</a></td>
+                <td><a href="#" class="menu-link">科技发展</a></td>
+                <td><a href="#" class="menu-link">信息通信</a></td>
+                <td><a href="#" class="menu-link">物资管理</a></td>
+            </tr>
+            <tr>
+                <td><a href="#" class="menu-link">思想政治</a></td>
+                <td><a href="#" class="menu-link">工会管理</a></td>
+                <td><a href="#" class="menu-link">对外联络</a></td>
+                <td><a href="#" class="menu-link">纪检监督</a></td>
+                <td><a href="#" class="menu-link">巡视巡察</a></td>
+                <td><a href="#" class="menu-link">运行调控</a></td>
+                <td><a href="#" class="menu-link">产业管理</a></td>
+                <td><a href="#" class="menu-link">后勤保障</a></td>
+                <td><a href="#" class="menu-link">离退管理</a></td>
+            </tr>
+        </table>
+    </div>
+    <div class="search">
+        <input type="text" placeholder="输入搜索关键词">
+        <button class="search-button">
+            <img src="search-icon.png" alt="搜索" class="search-icon">
+        </button>
+    </div>
+</div>
+
+<!-- 政策部分 -->
+<div class="policy-section">
+    <h2 class="policy-title">政策</h2>
+    <hr class="policy-horizontal-line"> <!-- 添加横线 -->
+    <div class="policy-content">
+        <div class="policy-column">
+            <div class="policy-header">
+                <h3><span class="policy-icon"></span>政策查询</h3>
+                <a href="#" class="more-link">more >></a>
             </div>
+            <ul>
+                <li>
+                    <a href="#" class="article-link">《关于电力调度优化管理的实施办法》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-31</span>
+                </li>
+                <li>
+                    <a href="#" class="article-link">《关于智能电网技术安全监管的暂行规定》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-29</span>
+                </li>
+                <li>
+                    <a href="#" class="article-link">《关于提升客户服务质量的实施细则》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-28</span>
+                </li>
+                <li>
+                    <a href="#" class="article-link">《关于电网建设项目环评管理的通知要求》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-31</span>
+                </li>
+                <li>
+                    <a href="#" class="article-link">《关于能源互联网大数据应用的暂行管理办法》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-11</span>
+                </li>
+            </ul>
         </div>
-        <div class="layui-col-md3 layui-col-sm6 layui-col-xs12">
-            <div class="widget-small widget-visit">
-                <i class="icon fa fa-line-chart fa-3x"></i>
-                <div class="widget-small-info">
-                    <h4>访问</h4>
-                    <span>1,200</span>
-                </div>
+        <div class="policy-divider"></div> <!-- 添加竖线 -->
+        <div class="policy-column">
+            <div class="policy-header">
+                <h3><span class="policy-icon"></span>政策管理</h3>
+                <a href="#" class="more-link">more >></a>
             </div>
+            <ul>
+                <li>
+                    <a href="#" class="article-link">《关于电力调度优化管理的实施办法》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-31</span>
+                </li>
+                <li>
+                    <a href="#" class="article-link">《关于智能电网技术安全监管的暂行规定》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-29</span>
+                </li>
+                <li>
+                    <a href="#" class="article-link">《关于提升客户服务质量的实施细则》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-28</span>
+                </li>
+                <li>
+                    <a href="#" class="article-link">《关于电网建设项目环评管理的通知要求》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-31</span>
+                </li>
+                <li>
+                    <a href="#" class="article-link">《关于能源互联网大数据应用的暂行管理办法》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-11</span>
+                </li>
+            </ul>
         </div>
-        <div class="layui-col-md3 layui-col-sm6 layui-col-xs12">
-            <div class="widget-small widget-message">
-                <i class="icon fa fa-comments-o fa-3x"></i>
-                <div class="widget-small-info">
-                    <h4>信息</h4>
-                    <span>41</span>
-                </div>
-            </div>
-        </div>
-        <div class="layui-col-md3 layui-col-sm6 layui-col-xs12">
-            <div class="widget-small widget-like">
-                <i class="icon fa fa-star fa-3x"></i>
-                <div class="widget-small-info">
-                    <h4>收藏</h4>
-                    <span>306</span>
-                </div>
-            </div>
+        <div class="policy-divider"></div> <!-- 添加竖线 -->
+        <div class="policy-column">
+            <img src="example.jpg" alt="政策图片" style="width: 100%; height: auto;">
         </div>
     </div>
-    <div class="layui-row layui-col-space15">
-        <div class="layui-col-md8">
-            <div class="layui-card">
-                <div class="layui-card-header">项目介绍</div>
-                <div class="layui-card-body project-introduce">
-                    <blockquote class="layui-elem-quote layui-quote-nm">
-                        校园管理系统，基于SpringBoot2.0 + Spring Data Jpa + Thymeleaf + Shiro 开发的后台管理系统，采用分模块的方式便于开发和维护，目前支持的功能有：权限管理、部门管理、日志记录！
-                    </blockquote>
-                    <div>
-                        <h4>技术选型</h4>
-                        <ol>
-                            <li>后端技术：SpringBoot + Spring Data Jpa + Thymeleaf + Shiro + EhCache</li>
-                            <li>前端技术：Layui + Jquery + zTree + Font-awesome</li>
-                        </ol>
-                    </div>
-                    <div>
-                        <h4>功能列表</h4>
-                        <ol>
-                            <li>用户管理：用于管理后台系统的用户，可进行增删改查等操作。</li>
-                            <li>角色管理：分配权限的最小单元，通过角色给用户分配权限。</li>
-                            <li>菜单管理：用于配置系统菜单，同时也作为权限资源。</li>
-                            <li>部门管理：通过不同的部门来管理和区分用户。</li>
+</div>
 
-                        </ol>
-                    </div>
-                </div>
+<!-- 制度部分 -->
+<div class="policy-section">
+    <h2 class="policy-title">制度</h2>
+    <hr class="policy-horizontal-line"> <!-- 添加横线 -->
+    <div class="policy-content">
+        <div class="policy-column">
+            <div class="policy-header">
+                <h3><span class="policy-icon"></span>制度查询</h3>
+                <a href="#" class="more-link">more >></a>
             </div>
-            <div class="layui-row layui-col-space15">
-                <div class="layui-col-md6">
-                    <div class="layui-card">
-                        <div class="layui-card-header">项目信息</div>
-                        <div class="layui-card-body">
-                            <ul>
-                                <li><i class="fa fa-paper-plane"></i> 版本：<a href="#">v2.0.1</a></li>
-                                <li><i class="fa fa-coffee"></i> 作者：<a href="#">孟柯</a></li>
-                                <li><i class="fa fa-flag"></i> 官网：<a href="http://xy.hnfqxl.com">http://xy.hnfqxl.com</a></li>
-
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-col-md6">
-                    <!--<div class="layui-card">-->
-                        <!--<div class="layui-card-header">支持一下吧！</div>-->
-                        <!--<div class="layui-card-body">-->
-                            <!--<img style="width: 100%" th:src="@{/images/alipay.png}"/>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                </div>
-            </div>
+            <ul>
+                <li>
+                    <a href="#" class="article-link">《关于电力调度优化管理的实施办法》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-31</span>
+                </li>
+                <li>
+                    <a href="#" class="article-link">《关于智能电网技术安全监管的暂行规定》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-29</span>
+                </li>
+                <li>
+                    <a href="#" class="article-link">《关于提升客户服务质量的实施细则》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-28</span>
+                </li>
+                <li>
+                    <a href="#" class="article-link">《关于电网建设项目环评管理的通知要求》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-31</span>
+                </li>
+                <li>
+                    <a href="#" class="article-link">《关于能源互联网大数据应用的暂行管理办法》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-11</span>
+                </li>
+            </ul>
         </div>
-        <div class="layui-col-md4">
-            <div class="layui-card">
-                <div class="layui-card-header">打赏</div>
-                <div class="layui-card-body">
-                    <div class="layui-card">
-                        <div class="layui-card-header">支持一下吧！</div>
-                        <div class="layui-card-body">
-                            <img style="width: 100%" th:src="@{/images/alipay.png}"/>
-                        </div>
-                    </div>
-                    <!--<ul class="layui-timeline">-->
-                        <!--<li class="layui-timeline-item">-->
-                            <!--<i class="layui-icon layui-timeline-axis">&#xe63f;</i>-->
-                            <!--<div class="layui-timeline-content layui-text">-->
-                                <!--<h3 class="layui-timeline-title">v2.0.1</h3>-->
-                                <!--<p>-->
-                                    <!--1.新增：加入JWT TOKEN鉴权机制，实现多端的权限验证！<br>-->
-                                    <!--2.更新：模块化全局统一异常处理机制及项目配置，降低模块间的耦合性！<br>-->
-                                    <!--3.修复：部分环境下代码生成模板文件编译时的后缀遗留问题！<br>-->
-                                    <!--4.修复：部门更新导致pids字段为空的问题！<br>-->
-                                <!--</p>-->
-                            <!--</div>-->
-                        <!--</li>-->
-                        <!--<li class="layui-timeline-item">-->
-                            <!--<i class="layui-icon layui-timeline-axis">&#xe63f;</i>-->
-                            <!--<div class="layui-timeline-content layui-text">-->
-                                <!--<h3 class="layui-timeline-title">v2.0</h3>-->
-                                <!--<p>-->
-                                    <!--1.重构项目结构，引入组件及业务组概念<br>-->
-                                    <!--2.前后台分离部署，可以针对前台进行性能优化<br>-->
-                                    <!--3.优化逻辑删除功能，限制查询已删除的数据<br>-->
-                                    <!--4.重构代码生成功能解析方式<br>-->
-                                    <!--5.优化弹出式窗口，加入最大化及自动适应大小<br>-->
-                                    <!--6.优化数据列表在小窗口下显示混乱问题-->
-                                <!--</p>-->
-                            <!--</div>-->
-                        <!--</li>-->
-                        <!--<li class="layui-timeline-item">-->
-                            <!--<i class="layui-icon layui-timeline-axis">&#xe63f;</i>-->
-                            <!--<div class="layui-timeline-content layui-text">-->
-                                <!--<h3 class="layui-timeline-title">v1.0.8</h3>-->
-                                <!--<p>-->
-                                    <!--1.重构字典模块，简化字典操作<br>-->
-                                    <!--2.修复个人信息修改时不通过问题<br>-->
-                                    <!--3.修复用户名修改报错问题，防止脏数据报错<br>-->
-                                    <!--4.修复上传文件无法访问的bug<br>-->
-                                    <!--5.修复生成实体类Text类型的bug-->
-                                <!--</p>-->
-                            <!--</div>-->
-                        <!--</li>-->
-                        <!--<li class="layui-timeline-item">-->
-                            <!--<i class="layui-icon layui-timeline-axis">&#xe63f;</i>-->
-                            <!--<div class="layui-timeline-content layui-text">-->
-                                <!--<h3 class="layui-timeline-title">v1.0.6</h3>-->
-                                <!--<p>-->
-                                    <!--加入导入导出功能-->
-                                <!--</p>-->
-                            <!--</div>-->
-                        <!--</li>-->
-                        <!--<li class="layui-timeline-item">-->
-                            <!--<i class="layui-icon layui-timeline-axis">&#xe63f;</i>-->
-                            <!--<div class="layui-timeline-content layui-text">-->
-                                <!--<h3 class="layui-timeline-title">v1.0.5</h3>-->
-                                <!--<p>-->
-                                    <!--1.加入QuerySpec动态查询实例<br>-->
-                                    <!--2.加入选择排序功能<br>-->
-                                    <!--3.加入xss防护功能<br>-->
-                                    <!--4.加入swagger数据接口文档-->
-                                <!--</p>-->
-                            <!--</div>-->
-                        <!--</li>-->
-                        <!--<li class="layui-timeline-item">-->
-                            <!--<i class="layui-icon layui-timeline-axis">&#xe63f;</i>-->
-                            <!--<div class="layui-timeline-content layui-text">-->
-                                <!--<h3 class="layui-timeline-title">v1.0.1</h3>-->
-                                <!--<p>-->
-                                    <!--1.加入部门管理<br>-->
-                                    <!--2.更新项目开源协议<br>-->
-                                    <!--3.支持第三级子菜单-->
-                                <!--</p>-->
-                            <!--</div>-->
-                        <!--</li>-->
-                        <!--<li class="layui-timeline-item">-->
-                            <!--<i class="layui-icon layui-timeline-axis">&#xe63f;</i>-->
-                            <!--<div class="layui-timeline-content layui-text">-->
-                                <!--<h3 class="layui-timeline-title">v1.0</h3>-->
-                                <!--<p>-->
-                                    <!--正式发布v1.0系统<br>-->
-                                    <!--1.权限管理<br>-->
-                                    <!--2.字典管理<br>-->
-                                    <!--3.日志管理<br>-->
-                                    <!--4.代码生成-->
-                                <!--</p>-->
-                            <!--</div>-->
-                        <!--</li>-->
-                        <!--<li class="layui-timeline-item">-->
-                            <!--<i class="layui-icon layui-timeline-axis">&#xe63f;</i>-->
-                            <!--<div class="layui-timeline-content layui-text">-->
-                                <!--<div class="layui-timeline-title">小懒虫</div>-->
-                            <!--</div>-->
-                        <!--</li>-->
-                    <!--</ul>-->
-                </div>
+        <div class="policy-divider"></div> <!-- 添加竖线 -->
+        <div class="policy-column">
+            <div class="policy-header">
+                <h3><span class="policy-icon"></span>制度管理</h3>
+                <a href="#" class="more-link">more >></a>
             </div>
+            <ul>
+                <li>
+                    <a href="#" class="article-link">《关于电力调度优化管理的实施办法》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-31</span>
+                </li>
+                <li>
+                    <a href="#" class="article-link">《关于智能电网技术安全监管的暂行规定》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-29</span>
+                </li>
+                <li>
+                    <a href="#" class="article-link">《关于提升客户服务质量的实施细则》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-28</span>
+                </li>
+                <li>
+                    <a href="#" class="article-link">《关于电网建设项目环评管理的通知要求》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-31</span>
+                </li>
+                <li>
+                    <a href="#" class="article-link">《关于能源互联网大数据应用的暂行管理办法》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-11</span>
+                </li>
+            </ul>
+        </div>
+        <div class="policy-divider"></div> <!-- 添加竖线 -->
+        <div class="policy-column">
+            <img src="example.jpg" alt="制度图片" style="width: 100%; height: auto;">
         </div>
     </div>
-<script th:replace="/common/template :: script"></script>
+</div>
+
+
+<!-- 务实部分 -->
+<div class="policy-section">
+    <h2 class="policy-title">务实</h2>
+    <hr class="policy-horizontal-line"> <!-- 添加横线 -->
+    <div class="policy-content">
+        <div class="policy-column">
+            <div class="policy-header">
+                <h3><span class="policy-icon"></span>务实查询</h3>
+                <a href="#" class="more-link">more >></a>
+            </div>
+            <ul>
+                <li>
+                    <a href="#" class="article-link">《关于电力调度优化管理的实施办法》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-31</span>
+                </li>
+                <li>
+                    <a href="#" class="article-link">《关于智能电网技术安全监管的暂行规定》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-29</span>
+                </li>
+                <li>
+                    <a href="#" class="article-link">《关于提升客户服务质量的实施细则》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-28</span>
+                </li>
+                <li>
+                    <a href="#" class="article-link">《关于电网建设项目环评管理的通知要求》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-31</span>
+                </li>
+                <li>
+                    <a href="#" class="article-link">《关于能源互联网大数据应用的暂行管理办法》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-11</span>
+                </li>
+            </ul>
+        </div>
+        <div class="policy-divider"></div> <!-- 添加竖线 -->
+        <div class="policy-column">
+            <div class="policy-header">
+                <h3><span class="policy-icon"></span>务实管理</h3>
+                <a href="#" class="more-link">more >></a>
+            </div>
+            <ul>
+                <li>
+                    <a href="#" class="article-link">《关于电力调度优化管理的实施办法》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-31</span>
+                </li>
+                <li>
+                    <a href="#" class="article-link">《关于智能电网技术安全监管的暂行规定》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-29</span>
+                </li>
+                <li>
+                    <a href="#" class="article-link">《关于提升客户服务质量的实施细则》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-28</span>
+                </li>
+                <li>
+                    <a href="#" class="article-link">《关于电网建设项目环评管理的通知要求》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-31</span>
+                </li>
+                <li>
+                    <a href="#" class="article-link">《关于能源互联网大数据应用的暂行管理办法》</a>
+                    <a href="#" class="interpret-link">解读</a>
+                    <span>2025-03-11</span>
+                </li>
+            </ul>
+        </div>
+        <div class="policy-divider"></div> <!-- 添加竖线 -->
+        <div class="policy-column">
+            <img src="example.jpg" alt="务实图片" style="width: 100%; height: auto;">
+        </div>
+    </div>
+</div>
 </body>
+
 </html>
